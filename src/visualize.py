@@ -1,8 +1,24 @@
 import pandas as pd 
 import os
 import matplotlib.pyplot as plt 
+import matplotlib.patches as mpatches
 
-def total_emissions_and_time(folder):
+# define argument parser
+def argument_parser():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--emissions_folder', type=str, help='name of folder with emissions', default = 'emissions')
+    args = vars(parser.parse_args())
+    
+    return args
+
+def total_emissions_and_time(folder:str) -> float:
+    
+    '''
+    Function to loop through subfolders in a specified main_folder containing .csv files with CO2eq emissions.
+    
+    '''
     
     files = []
 
@@ -48,6 +64,7 @@ def plotting_total(emissions, durations):
     plt.bar(assignments, emissions, color = ['green', 'blue', 'red', 'orange'])
     plt.ylabel('Emissions of CO₂eq in kilograms')
     plt.title('Emissions of CO₂eq across assignments')
+    plt.tight_layout()
     
     out_path = os.path.join('out', 'total_emissions.png')
     plt.savefig(out_path)
@@ -56,6 +73,7 @@ def plotting_total(emissions, durations):
     plt.bar(assignments, durations, color = ['green', 'blue', 'red', 'orange'])
     plt.ylabel('Duration (in seconds)')
     plt.title('Duration of assignments')
+    plt.tight_layout()
     
     out_path = os.path.join('out', 'total_durations.png')
     plt.savefig(out_path)
@@ -82,13 +100,49 @@ def create_subtasks_plot(subtasks_df, assignment_number):
     emissions = list(subtasks_df['emissions'])
 
     # create plot
-    fig, ax = plt.subplots(figsize = (8,4))
+    fig, ax = plt.subplots(figsize = (8,6))
     ax.barh(names, emissions)
-    ax.set_ylabel('Emissions of CO₂eq in kilograms')
+    ax.set_xlabel('Emissions of CO₂eq in kilograms')
     ax.set_title(f'Emissions of CO₂eq for tasks in Assignment {assignment_number}')
+    fig.tight_layout()
     
     out_path = os.path.join('out', f'subtasks_emissions_assignment_{assignment_number}.png')
 
+    plt.savefig(out_path)
+
+def create_gathered_subtasks_plot(all_subtasks):
+
+    colors = []
+
+    for i in range(len(all_subtasks)):
+
+        if all_subtasks['assignment'].iloc[i] == 1:
+            colors.append('green')
+        
+        elif all_subtasks['assignment'].iloc[i] == 2:
+            colors.append('blue')
+        
+        elif all_subtasks['assignment'].iloc[i] == 3:
+            colors.append('red')
+        
+        elif all_subtasks['assignment'].iloc[i] == 4:
+            colors.append('orange')
+
+    # create plot of all subtasks
+    fig, ax = plt.subplots(figsize = (8,6))
+    ax.barh(list(all_subtasks['task_name']), list(all_subtasks['emissions']), color = colors)
+    ax.set_xlabel('Emissions of CO₂eq in kilograms')
+    ax.set_title('Emissions of CO₂eq for tasks in all assignments')
+    fig.tight_layout()
+
+    handles = [mpatches.Patch(color='green', label='Assignment 1'),
+                mpatches.Patch(color='blue', label='Assignment 2'),
+                mpatches.Patch(color='red', label='Assignment 3'),
+                mpatches.Patch(color='orange', label='Assignment 4')]
+
+    fig.legend(handles=handles, bbox_to_anchor=(0.98,0.94))
+    
+    out_path = os.path.join('out', 'emissions_all_subtasks.png')
     plt.savefig(out_path)
 
 def visualize_subtasks(path):
@@ -103,15 +157,8 @@ def visualize_subtasks(path):
         subtasks_df['assignment'] = i + 1
         create_subtasks_plot(subtasks_df, i+1)
         all_subtasks = pd.concat([all_subtasks, subtasks_df])
-
-    # create plot of all subtasks
-    fig, ax = plt.subplots(figsize = (6,4))
-    ax.barh(list(all_subtasks['task_name']), list(all_subtasks['emissions']))
-    ax.set_ylabel('Emissions of CO₂eq in kilograms')
-    ax.set_title('Emissions of CO₂eq for tasks in all assignments')
     
-    out_path = os.path.join('out', 'emissions_all_subtasks.png')
-    plt.savefig(out_path)
+    create_gathered_subtasks_plot(all_subtasks)
 
 def save_data(folder_name):
 
