@@ -1,4 +1,4 @@
-# assignment-5-evaluating-environmental-impact-louisebphansen
+# Assignment 5: Evaluating environmental impact of my exam portfolio
 
 This assignment is the fifth and final assignment for the portfolio exam in the Language Analytics course at Aarhus University, spring 2024.
 
@@ -29,14 +29,11 @@ For this assignment, I want you to go back to all four of previous assignments i
 This repository contains the code to visualize results from csv files containing information about C02-equivalent emissions from running the code in Assignment 1-4. The csv files are found in the ```data.zip``` file; unzipping it will create the folder ```emissions``` with four subfolders, one for each assignment. Each of these subfolders contain the csv files with information about CO2 emissions for each assignment, which was obtained by implementing functions from [CodeCarbon](https://codecarbon.io/) in the source code in Assignments 1-4. 
 
 - Csv files that ends with *'FULL_emissions.csv'* contain information about running the **entire** script
-- Csv files that ends with *'subtasks_emissions.csv'* contain information about emissions for each **subtask** in a script
-- Csv files that ends with *'subtasks_meta.csv'* contain metadata on emissions from subtasks, and are not used for this analysis directly.
+- Csv files that ends with *'subtasks_emissions.csv'* contain information about emissions for **subtasks** in a script
 
+Subtasks for each assignment was measured using the *'Explicit Object'* from CodeCarbon, which allowed me to track specific lines of code and therefore also specific subtasks. On the other hand, emissions from running the enitire script was measured using a *decorator* object from CodeCarbon, which was placed before the *main* function of each script, where the entire code analysis was run. This enabled me to get a metric for running the entire script (See CodeCarbon [docs](https://mlco2.github.io/codecarbon/examples.html#using-the-explicit-object) on more information about tracking options).
 
-
-As some of the assignments consists of running multiple scripts seperately, there will be several .csv files ending with *'FULL_emissions'* and *'subtasks_emissions'*. These csv files are concatenated in the ```src/visualize.py``` script to gather it into a full assignment.
-
-
+As some of the assignments consists of running multiple scripts seperately, there will be several .csv files ending with *'FULL_emissions'* and *'subtasks_emissions'* for some assignments. These csv files are concatenated in the ```src/visualize.py``` script when calculating the total emissions for each assignment.
 
 ### Usage
 
@@ -78,3 +75,4 @@ To run the code in this repo with predefined/default arguments, run:
 ```
 bash run.sh
 ```
+
