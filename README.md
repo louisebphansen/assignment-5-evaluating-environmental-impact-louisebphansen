@@ -96,13 +96,33 @@ The resulting plots can all be found in the ```out``` folder, but will be displa
 #### Which assignment generated the most emissions in terms of CO₂eq? Explain why this might be.
 
 
-This plot (```out/total_emissions.png```) shows the CO2eq emissions from running all code from each of the assignments. It is very clear that Assignment 1 emits a lot more CO2eq than the rest of the assignments. Assignment 4 emits a bit more CO2eq than Assignment 2, whereas Assignment 3 emits very little compared to the rest of the Assignments. It is however important to note that the emissions for Assignment 3 is only for running a single query search, which is naturally much less computationally expensive than the other Assignments. This makes it very difficult to compare it to the other Assignments, as they are just too different.
+This plot (```out/total_emissions.png```) shows the CO2eq emissions from running all code from each of the assignments. It is very clear that Assignment 1 emits a lot more CO2eq than the rest of the assignments. Assignment 4 emits a bit more CO2eq than Assignment 2, whereas Assignment 3 emits very little compared to the rest of the Assignments. It is however important to note that the emissions for Assignment 3 is only for running a single query search, which is naturally much less computationally expensive than the other assignments, as it is a much smaller task. This makes it very difficult to compare it to the other assignments, as they are just too different. With this in mind, it is nonetheless still possible to conclude that Assignment 1 omits the most CO2eq. Although it is arguably one of the most *simple* assignments in terms of NLP methods, it is apparently also the most computationally heavy. This is probably because several ```spaCy``` functions needs to be used on *all* documents in *all* subfolders. Each text in each subfolder needs to be tokenized, which uses some compute power. Furthermore, the code only looks for one POS or NER tag *at a time* - this means that the code goes through all words in each .txt file for every POS or NER tags to be counted, making it quite inefficient, because it has to go through a lot of text multiple times.
 
-Nonetheless, 
+Next, Assignment 4 emits more CO2eq compared to Assignment 2. This is probably due to multiple things; first of all, the data for Assignment 4 (22,300 lines) is substatially bigger than the data for Assignment 2 (6335 texts). Second, the emotion classifier in Assignment 4 uses sentece transformers to create embeddings for the spoken lines, whereas Assignment 2 uses a more simple, TF-IDF vectorizer as input to the classifier. Furthermore, the classification head attatched to the pre-trained HuggingFace model used is arguably way more complex than the neural network or logistic regression model used in Assignment 2. However, considering these points, it is interesting that Assignment 4 does not emit even more CO2eq compared to Assignment 2. This arguably highlights the benefits of using pre-trained models compared to models trained from scratch.
 
+
+
+Assignment 4 also requires some computational power. 
+
+This makes sense as it applies a pre-trained emotion-classification transformer models to all 22,300 rows in the dataset. Even though 
 
 
 #### Which specific tasks generated the most emissions in terms of CO₂eq? Again, explain why this might be.
+
+##### Assignment 1
+
+##### Assignment 2
+
+The plot (```out/subtasks_emissions_assignment_2.png```) shows emissions for subtasks in Assignment 2. This clearly shows that fitting the neural network classifier emits the most CO2eq compared to the other tasks. Although it is a quite simple neural network, with only one hidden layer of size 50, training it from scratch is computationally expensive, as all the weights needs to be updated during fitting on the training data. On the other hand, the logistic regression does not have this hidden layer with weights to be updated, which explains the low CO2eq emitted from this model. It should be noted that the emissions for fitting the logistic model is of course not zero, but it is just so close to 0 that it becomes insignificant in the barplot.
+
+These results are especially interesting considering the results from the classification task of Assignment 2, as the two models performed almost identically. This underlines that for a simple classification problem such as this, more complex models might not be the answer, especially considering the increase in CO2eq emissions compared to a simple, logistic regression.
+
+
+##### Assignment 3
+
+For Assignment 3, we see that loading the GLOVE embedding model is the most computationally heavy task. This is because the GLOVE model contains all the pre-trained word embeddings from the corpus (*wiki-gigaword-50*), making it a big file to load. On the other hand, the two other subtasks just process the data in simples ways, i.e., simple pre-processing where punctuation is removed and everything is made lowercase, as well as the query search, which is really just a word-counting task. Neither of these tasks are computationally expensive, even though they are applied to all songs in the dataset, which is why they do no emit a lot of CO2eq.
+
+##### Assignment 4
 
 
 #### How robust do you think these results are and how/where might they be improved?
