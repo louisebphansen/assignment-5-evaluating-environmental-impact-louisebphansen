@@ -80,7 +80,7 @@ This will unzip ```emissions.zip``` file, creating the folder ```emissions```. N
 
 ##### Define arguments yourself
 
-Alternatively, the script(s) can be run with different arguments:
+Alternatively, the script can be run with different arguments:
 
 ```
 # activate the virtual environment
@@ -98,7 +98,9 @@ python3 src/visualize.py --emissions_folder <emissions_folder>
 
 ### Results & Discussion
 
-The resulting plots can all be found in the ```out``` folder, but will be displayed below as well. The plots can be used to answer the following questions:
+The resulting plots can all be found in the ```out``` folder, but will be displayed below as well. It is important to note that the tasks with no bar appearing from them do not have a CO2eq emission of zero, they are just so small and close to zero that they do not appear on the plot.
+
+The plots can be used to answer the following questions:
 
 #### Which assignment generated the most emissions in terms of CO₂eq? Explain why this might be.
 
@@ -144,10 +146,31 @@ For this Assignment, it is evident that using the pre-trained emotion classifier
 
 ![image](https://github.com/louisebphansen/assignment-5-evaluating-environmental-impact-louisebphansen/assets/75262659/42ffca29-c03e-4dae-a457-23a77c23f4ea)
 
-In this plot, all subtasks for all assignments are gathered into a single plot. The tasks with no bar appearing from them do not have a CO2eq emission of zero, they are just so small and close to zero that they do not appear on the plot. We see the same trends as described in the sections above; Extracting linguistic information from Assignment 1 is the task which emits the most CO2eq, followed by classifying emotions in ASsignment 4 and fitting a neural network in Assignment 2. It is evident that 'simple' tasks, such as plotting results, pre-processing text or fitting a logistic regression emits very little CO2eq, as they require a much more simple processing of our data. On the other hand, tasks such as extracting linguistic information, classifying emotions or fitting a model from scratch, emits a lot more CO2eq, as they require much complex and computationally expensive processing of data.
+In this plot, all subtasks for all assignments are gathered into a single plot. We see the same trends as described in the sections above; Extracting linguistic information from Assignment 1 is the task which emits the most CO2eq, followed by classifying emotions in Assignment 4 and fitting a neural network in Assignment 2. It is evident that 'simple' tasks, such as plotting results, pre-processing text or fitting a logistic regression emits very little CO2eq, as they require a much more simple processing of the data. On the other hand, tasks such as extracting linguistic information, classifying emotions or fitting a model from scratch, emits a lot more CO2eq, as they require much complex and computationally expensive processing of data.
 
 #### How robust do you think these results are and how/where might they be improved?
 
+
+The results are robust in the way that running the code again on the same UCloud machine would give the same results. There are, however, arguably some limitations in the way CodeCarbon measures emissions.
+
 ![image](https://github.com/louisebphansen/assignment-5-evaluating-environmental-impact-louisebphansen/assets/75262659/b848c4f0-9005-4e85-924c-c175f7f6acdc)
+
+This plot shows the duration from running each Assignment on the u1-standard-16 machine on UCloud. One might notice that the heights of the barplots looks identical to the ones in the plot of emissions across assignments. This shows that the most important factor which determines how much CO2eq a script of code emits is the time it takes running it. CodeCarbon notes on their [documentation](https://mlco2.github.io/codecarbon/methodology.html) that the CO2 emissions are measured using the following formula:
+
+```C * E```
+
+Where C is the "*carbon intensity of the electricity consumed*" and E is the "*kilowatt-hours*". This means that CodeCarbon uses some constant, *C*, to multiply with time spent running the code, *E*. This *C* variable seems to be determined by the CO2 emitted from producing energy in the country the code is run from. A country with energy sources mainly from wind power would for example have a lower carbon intensity than a country that uses mainly coal as an energy source (again, see CodeCarbon [docs](https://mlco2.github.io/codecarbon/methodology.html) for more information). This could mean that running the code in a country with energy sources different from Denmark's would give different results in terms of CO2 emissions, which does not make the results robust across locations or nations. Although one could argue that CodeCarbon has come up with a fairly good and simple measure of estimating CO2 emissions, it is not entirely clear how precise or updated the numbers used for these calculations are, which introduces a lot of uncertainty. One could therefore argue that the numbers from CodeCarbon should not be interpreted as the ground truth, but rather a way to estimate emissions or compare emissions across tasks to be mindful of the impact your code might have.
+
+Furthermore, as time has shown to be an important factor for 
+
+Although the above paragraphs highlights some limitations with using CodeCarbon to measure emissions from code, it is arguably still a beneficial tool to use for getting a rough estimate of CO2 emissions. 
+
+
+It would be beneficial if there was a way to ensure that, when using an online, cloud-based computing service such as UCloud, one were using the optimal resources for the task at hand. 
+
+
+
+using a higher machine might be more efficient (the code will take less time to run), but will it emit more co2 to have a high machine running?
+
 
 Doesn't take into account that for example training the huggingface emotion classifier was very computationally heavy.
