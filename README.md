@@ -18,9 +18,9 @@ For this assignment, I want you to go back to all four of previous assignments i
 
 | <div style="width:120px"></div>| Description |
 |---------|:-----------|
-| ```out``` | Contains the output plots showing emissions for assignments and subtasks within each assignment|
+| ```out``` | Contains the output plots showing emissions for assignments and subtasks|
 | ```src```  | Contains the Python script for generating plots of emissions for assignments|
-| ```run.sh```    | Bash script for running script with default arguments|
+| ```run.sh```    | Bash script for running Python script with default arguments|
 | ```setup.sh```  | Bash script for setting up virtual environment|
 | ```requirements.txt```  | Packages required to run the code|
 |```emissions.zip```| Zipped datafolder containing all csv files containing information about emissions from running code from Assignments 1-4|
@@ -161,16 +161,4 @@ This plot shows the duration from running each Assignment on the u1-standard-16 
 
 Where C is the "*carbon intensity of the electricity consumed*" and E is the "*kilowatt-hours*". This means that CodeCarbon uses some constant, *C*, to multiply with time spent running the code, *E*. This *C* variable seems to be determined by the CO2 emitted from producing energy in the country the code is run from. A country with energy sources mainly from wind power would for example have a lower carbon intensity than a country that uses mainly coal as an energy source (again, see CodeCarbon [docs](https://mlco2.github.io/codecarbon/methodology.html) for more information). This could mean that running the code in a country with energy sources different from Denmark's would give different results in terms of CO2 emissions, which does not make the results robust across locations or nations. Although one could argue that CodeCarbon has come up with a fairly good and simple measure of estimating CO2 emissions, it is not entirely clear how precise or updated the numbers used for these calculations are, which introduces a lot of uncertainty. One could therefore argue that the numbers from CodeCarbon should not be interpreted as the ground truth, but rather a way to estimate emissions or compare emissions across tasks to be mindful of the impact your code might have.
 
-Furthermore, as time has shown to be an important factor for 
-
-Although the above paragraphs highlights some limitations with using CodeCarbon to measure emissions from code, it is arguably still a beneficial tool to use for getting a rough estimate of CO2 emissions. 
-
-
-It would be beneficial if there was a way to ensure that, when using an online, cloud-based computing service such as UCloud, one were using the optimal resources for the task at hand. 
-
-
-
-using a higher machine might be more efficient (the code will take less time to run), but will it emit more co2 to have a high machine running?
-
-
-Doesn't take into account that for example training the huggingface emotion classifier was very computationally heavy.
+Furthermore, CodeCarbon does not appear (from their formula, at least) to take into account what type of machine the code is run on. This could for example become a problem on a computing service such as UCloud, where it is possible to select what size of machine you want your code to run on, and where bigger machines often result in faster compute time. One could have the assumption that bigger machines, even though they run the code faster, also emits more CO2 when used. If this is the case, CodeCarbon overlooks this source of emissions, which again makes their metrics imprecise. It would thus be beneficial if there was a way for CodeCarbon to include this in their measurements of CO2, and even better if there was of measuring that one were using the optimal resources (e.g., compute power) for the task at hand.
