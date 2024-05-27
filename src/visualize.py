@@ -233,7 +233,7 @@ def create_gathered_subtasks_plot(all_subtasks:pd.DataFrame):
     ax.set_title('Emissions of CO₂eq for tasks in all assignments')
     fig.tight_layout()
 
-    # manually create legend to explain colorr
+    # manually create legend to explain color
     handles = [mpatches.Patch(color='green', label='Assignment 1'),
                 mpatches.Patch(color='blue', label='Assignment 2'),
                 mpatches.Patch(color='red', label='Assignment 3'),
