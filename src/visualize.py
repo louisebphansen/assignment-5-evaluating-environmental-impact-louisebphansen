@@ -8,6 +8,7 @@ This script creates visualizations from .csv files in the input folder containin
 
 '''
 
+# import modules
 import os
 import argparse
 import pandas as pd 
