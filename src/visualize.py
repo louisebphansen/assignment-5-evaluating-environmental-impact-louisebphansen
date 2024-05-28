@@ -308,8 +308,10 @@ def visualize_and_save(emissions_folder_name:str):
 
 def main():
 
+    # parse arguments
     args = argument_parser()
 
+    # create visualizations and save to /out folder
     visualize_and_save(args['emissions_folder'])
 
 if __name__ == '__main__':
