@@ -1,4 +1,4 @@
-# Assignment 5: Evaluating environmental impact of my exam portfolio
+# Assignment 5: Evaluating the environmental impact of my exam portfolio
 
 This assignment is the fifth and final assignment for the portfolio exam in the Language Analytics course at Aarhus University, spring 2024.
 
@@ -8,7 +8,7 @@ The code was written by me, but code provided in the notebooks for the course ha
 
 ### Assignment description
 
-For this assignment, I want you to go back to all four of previous assignments in Language Analytics. For each assignment, I want you to use CodeCarbone to measure the environmental impact of your code in terms of CO₂eq. You should specifically address the following questions:
+For this assignment, I want you to go back to all four of previous assignments in Language Analytics. For each assignment, I want you to use CodeCarbon to measure the environmental impact of your code in terms of CO₂eq. You should specifically address the following questions:
 
 - Which assignment generated the most emissions in terms of CO₂eq? Explain why this might be.
 - Which specific tasks generated the most emissions in terms of CO₂eq? Again, explain why this might be.
@@ -19,21 +19,20 @@ For this assignment, I want you to go back to all four of previous assignments i
 | <div style="width:120px"></div>| Description |
 |---------|:-----------|
 | ```out``` | Contains the output plots showing emissions for assignments and subtasks|
-| ```src```  | Contains the Python script for generating plots of emissions for assignments|
+| ```src```  | Contains the Python script for generating plots of emissions |
 | ```run.sh```    | Bash script for running Python script with default arguments|
 | ```setup.sh```  | Bash script for setting up virtual environment|
 | ```requirements.txt```  | Packages required to run the code|
-|```emissions.zip```| Zipped datafolder containing all csv files containing information about emissions from running code from Assignments 1-4|
+|```emissions.zip```| Zipped datafolder containing all csv files with information about emissions from running code from Assignments 1-4|
 
 ### Methods & Data
-This repository contains the code to visualize results from csv files containing information about C02-equivalent emissions from running the code in Assignment 1-4. The csv files are found in the ```emissions.zip``` file; unzipping it will create the folder ```emissions``` with four subfolders, one for each assignment. Each of these subfolders contain the csv files with information about CO2 emissions for each assignment, which was obtained by implementing functions from [CodeCarbon](https://codecarbon.io/) in the source code in Assignments 1-4. 
+This repository contains the code to visualize results from csv files containing information about CO2-equivalent emissions from running the code in Assignments 1-4. The csv files can be found in the ```emissions.zip``` file; unzipping it will create the folder ```emissions``` with four subfolders, one for each assignment. Each of these subfolders contain the csv files with information about CO2 emissions for each assignment, which was obtained by implementing functions from [CodeCarbon](https://codecarbon.io/) in the source code in Assignments 1-4. 
 
 - Csv files that ends with *'FULL_emissions.csv'* contain information about running the **entire** script
 - Csv files that ends with *'subtasks_emissions.csv'* contain information about emissions for **subtasks** in a script
 
-Subtasks for each assignment was measured using the *'Explicit Object'* from CodeCarbon, which allowed me to track specific lines of code and therefore also specific subtasks. On the other hand, emissions from running the enitire script was measured using a *decorator* object from CodeCarbon, which was placed before the *main* function of each script, where the entire code analysis was run. This enabled me to get a metric for running the entire script (See CodeCarbon [docs](https://mlco2.github.io/codecarbon/examples.html#using-the-explicit-object) on more information about tracking options). All the code was run on one u1-standard-16 machine on UCloud.
+Subtasks for each assignment was measured using the *'Explicit Object'* from CodeCarbon, which allowed me to track specific lines of code and therefore also specific subtasks. On the other hand, emissions from running the enitire script was measured using a *decorator* object from CodeCarbon, which was placed before the *main* function of each script, where the entire code analysis was run. This enabled me to get a metric for running the entire script (See CodeCarbon [docs](https://mlco2.github.io/codecarbon/examples.html#using-the-explicit-object) on more information about tracking options). As some of the assignments consists of running multiple scripts seperately, there will be several .csv files ending with *'FULL_emissions'* and *'subtasks_emissions'* for some assignments. These are concatenated in the script before calculating the full emissions for assignments, to get a single metric for each assignment. The emissions in the csv files are the result of running all code from Assignments 1-4 on one u1-standard-16 machine on UCloud.
 
-As some of the assignments consists of running multiple scripts seperately, there will be several .csv files ending with *'FULL_emissions'* and *'subtasks_emissions'* for some assignments. These csv files are concatenated in the ```src/visualize.py``` script when calculating the total emissions for each assignment.
 
 ### Usage
 
