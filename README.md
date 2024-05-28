@@ -46,8 +46,6 @@ It is important that you run all code from the main folder, i.e., *assignment-5-
 
 #### Set up virtual environment
 
-To run the code in this repo, clone it using ```git clone```.
-
 In order to set up the virtual environment, the *venv* package for Python needs to be installed first:
 
 ```
